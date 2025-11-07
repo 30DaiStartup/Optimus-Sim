@@ -24,6 +24,9 @@ COPY backend/app ./app
 # Copy TinyTroupe from parent directory
 COPY TinyTroupe /app/TinyTroupe
 
+# Install TinyTroupe as a Python package
+RUN pip install --no-cache-dir -e /app/TinyTroupe
+
 # Create necessary directories
 RUN mkdir -p uploads agents simulations
 
