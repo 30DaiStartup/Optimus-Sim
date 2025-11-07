@@ -6,6 +6,8 @@ from pydantic import BaseModel, Field
 
 class BigFivePersonality(BaseModel):
     """Big Five personality model."""
+    model_config = {"arbitrary_types_allowed": True}
+
     openness: str
     conscientiousness: str
     extraversion: str
@@ -15,12 +17,16 @@ class BigFivePersonality(BaseModel):
 
 class PersonalityTraits(BaseModel):
     """Personality traits."""
+    model_config = {"arbitrary_types_allowed": True}
+
     traits: List[str]
     big_five: Optional[BigFivePersonality] = None
 
 
 class Occupation(BaseModel):
     """Occupation details."""
+    model_config = {"arbitrary_types_allowed": True}
+
     title: str
     organization: Optional[str] = None
     description: str
@@ -28,6 +34,8 @@ class Occupation(BaseModel):
 
 class Preferences(BaseModel):
     """Agent preferences."""
+    model_config = {"arbitrary_types_allowed": True}
+
     interests: Optional[List[str]] = []
     likes: Optional[List[str]] = []
     dislikes: Optional[List[str]] = []
@@ -35,18 +43,24 @@ class Preferences(BaseModel):
 
 class Behaviors(BaseModel):
     """Agent behaviors."""
+    model_config = {"arbitrary_types_allowed": True}
+
     general: Optional[List[str]] = []
     routines: Optional[Dict[str, List[str]]] = {}
 
 
 class Relationship(BaseModel):
     """Agent relationship."""
+    model_config = {"arbitrary_types_allowed": True}
+
     name: str
     description: str
 
 
 class Persona(BaseModel):
     """Complete persona specification."""
+    model_config = {"arbitrary_types_allowed": True}
+
     name: str
     age: Optional[int] = None
     gender: Optional[str] = None
@@ -68,6 +82,8 @@ class Persona(BaseModel):
 
 class AgentCreate(BaseModel):
     """Request model for creating an agent."""
+    model_config = {"arbitrary_types_allowed": True}
+
     type: str = "TinyPerson"
     persona: Persona
 
@@ -85,6 +101,8 @@ class AgentGenerateRequest(BaseModel):
 
 class AgentResponse(BaseModel):
     """Response model for agent data."""
+    model_config = {"arbitrary_types_allowed": True}
+
     id: str
     type: str
     persona: Persona
