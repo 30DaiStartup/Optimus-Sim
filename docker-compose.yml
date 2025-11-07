@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: optimussim-backend
+    ports:
+      - "8000:8000"
+    environment:
+      # Load from .env file
+      - API_TYPE=${API_TYPE:-openai}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - AZURE_OPENAI_KEY=${AZURE_OPENAI_KEY}
+      - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
+      - TINYTROUPE_MODEL=${TINYTROUPE_MODEL:-gpt-4.1-mini}
+      - TINYTROUPE_MAX_TOKENS=${TINYTROUPE_MAX_TOKENS:-32000}
+      - TINYTROUPE_TEMPERATURE=${TINYTROUPE_TEMPERATURE:-1.5}
+      - TINYTROUPE_CACHE_API_CALLS=${TINYTROUPE_CACHE_API_CALLS:-False}
+      - DEBUG=${DEBUG:-False}
+    volumes:
+      # Mount local directories for development
+      - ./backend/app:/app/app
+      - ./TinyTroupe:/app/TinyTroupe
+      - backend-uploads:/app/uploads
+      - backend-agents:/app/agents
+      - backend-simulations:/app/simulations
+    restart: unless-stopped
+    networks:
+      - optimussim-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: optimussim-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - optimussim-network
+
+volumes:
+  backend-uploads:
+  backend-agents:
+  backend-simulations:
+
+networks:
+  optimussim-network:
+    driver: bridge

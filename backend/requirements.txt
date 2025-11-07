@@ -1,0 +1,32 @@
+# FastAPI and Server
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+pydantic==2.10.0
+pydantic-settings==2.6.0
+python-multipart==0.0.18
+websockets==14.1
+
+# TinyTroupe Dependencies (from TinyTroupe/pyproject.toml)
+pandas
+pytest
+pytest-cov
+openai>=1.65
+tiktoken
+msal
+rich
+requests
+chevron
+llama-index
+llama-index-embeddings-huggingface
+llama-index-readers-web
+llama-index-embeddings-azure-openai
+pypandoc
+python-docx
+markdown
+matplotlib
+scipy
+textdistance
+
+# Additional Backend Dependencies
+python-dotenv==1.0.1
+aiofiles==24.1.0
