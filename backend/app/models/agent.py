@@ -90,11 +90,15 @@ class AgentCreate(BaseModel):
 
 class AgentUpdate(BaseModel):
     """Request model for updating an agent."""
+    model_config = {"arbitrary_types_allowed": True}
+
     persona: Optional[Persona] = None
 
 
 class AgentGenerateRequest(BaseModel):
     """Request model for generating an agent via AI."""
+    model_config = {"arbitrary_types_allowed": True}
+
     description: str = Field(..., description="Natural language description of the agent to generate")
     context: Optional[str] = Field(None, description="Context for the agent (e.g., 'A hospital in São Paulo')")
 
@@ -112,5 +116,7 @@ class AgentResponse(BaseModel):
 
 class AgentListResponse(BaseModel):
     """Response model for listing agents."""
+    model_config = {"arbitrary_types_allowed": True}
+
     agents: List[AgentResponse]
     total: int
